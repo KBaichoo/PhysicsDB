@@ -22,6 +22,11 @@
 				height: 200px;
 				background-color: red;
 			}
+			#currentContainer{
+				width: 400px;
+				height: 200px;
+				background-color: blue;
+			}
 		</style>
 		<script type="text/javascript" src="admin.js"></script>
 		<script type="text/javascript">
@@ -96,6 +101,7 @@
 		
 	</head>
 	<body>
+		<?php include('inc/nav_bar.php'); ?>
 		<div id="outerContainer">
 			<div id="modifyMyAccount">
 				<div class="result"></div>
@@ -195,5 +201,4 @@
 				?>
 			</div>
 		</div>
-	</body>
-</html>
+	<?php include('inc/footer.php'); ?>

@@ -18,5 +18,4 @@
 				} ?></div>
 				<input type="submit" value='Login'>
 		</form>
-	</body>
-</html>
+	<?php include('inc/footer.php'); ?>
