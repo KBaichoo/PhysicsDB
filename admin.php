@@ -1,9 +1,10 @@
 <?php
-	
 	$pageName = "Admin Panel";
 	$needDB = true;
 	include('inc/header.php');
+?>
 
+<?php
 	function listOptions($queryStatement){
 		global $conn;
 		$query = $conn->prepare($queryStatement);
