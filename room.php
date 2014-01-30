@@ -1,20 +1,13 @@
 <?php
-	session_start();
-	//Code to handle session_start
-	include('./inc/dbconnect.php');
-
+	
+	$needDB = true;
+	include('inc/header.php');
 
 	$queryStatement = "select name, id, number from rooms";
 	$query = $conn->prepare($queryStatement);
 	$query->execute();
 
 ?>
-<!Doctype html>
-<html>
-	<head>
-		<title>
-			Rooms Page
-		</title>	
 		<style type="text/css">
 			.section{
 				margin-left:10px;
@@ -26,7 +19,6 @@
 				margin-left:30px;
 			}
 		</style>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				function loadEquipment()

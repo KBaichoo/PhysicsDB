@@ -1,8 +1,7 @@
 <?php
-	session_start();
-	//Code to handle session_start
-	
-	include('./inc/dbconnect.php');
+
+	$needDB = true;
+	include('inc/header.php');
 
 
 	$queryStatement = "select name,id from items";
@@ -10,12 +9,7 @@
 	$query->execute();
 
 ?>
-<!Doctype html>
-<html>
-	<head>
-		<title>
-			Equipments Page
-		</title>	
+
 		<style type="text/css">
 @import url(http://fonts.googleapis.com/css?family=Lora);
 #container{
@@ -66,7 +60,6 @@
 		    display:block;
 		}
 		</style>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 		<script type="text/javascript">
 			function makeElement(element,innerHTML,className,id){
 				theElement = document.createElement(element);

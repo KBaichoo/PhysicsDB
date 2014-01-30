@@ -1,7 +1,7 @@
 <?php
-	session_start();
-	//Code to handle session_start
-	include('./inc/dbconnect.php');
+
+	$needDB = true;
+	include('inc/header.php');
 
 
 	$queryStatement = "select name, id from items";
@@ -9,12 +9,6 @@
 	$query->execute();
 
 ?>
-<!Doctype html>
-<html>
-	<head>
-		<title>
-			Items Page
-		</title>
 		<style type="text/css">
 			.item_details{
 				margin-left:10px;
@@ -26,7 +20,6 @@
 				margin-left:20px;
 			}
 		</style>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 		<script type="text/javascript">
 			globalData = 0;
 			$(document).ready(function(){

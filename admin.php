@@ -1,14 +1,8 @@
 <?php
-	ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(-1);
-	session_start();
-	if(!isset($_SESSION['user'])){
-		header("Location:index1.php");
-		exit;
-	}
-	include('./inc/dbconnect.php');
 	
+	$pageName = "Admin Panel";
+	$needDB = true;
+	include('inc/header.php');
 
 	function listOptions($queryStatement){
 		global $conn;
@@ -21,12 +15,6 @@ error_reporting(-1);
 		return $results;	
 	}
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Admin Page</title>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<style type="text/css">
 			#deleteBin{
 				width:200px;
