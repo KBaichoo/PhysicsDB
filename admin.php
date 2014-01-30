@@ -2,6 +2,10 @@
 	$pageName = "Admin Panel";
 	$needDB = true;
 	include('inc/header.php');
+	//REDIRECTS Teachers
+	if(count($_GET) > 0 && $_SESSION['level'] == 'teacher'){
+		header("Location:admin.php");
+	}
 ?>
 
 <?php
@@ -103,6 +107,8 @@
 	<body>
 		<?php include('inc/nav_bar.php'); ?>
 		<div id="outerContainer">
+
+			<?php if(count($_GET) == 0){ ?>
 			<div id="modifyMyAccount">
 				<div class="result"></div>
 				To change your password <?php echo $_SESSION['user'] ?> simply type it here 
@@ -110,95 +116,15 @@
 				<input type="password">
 				<button onclick="updatePassword();">Change my password!</button>
 			</div>
-			<?php 
-				if(isset($_SESSION['level']) == true && $_SESSION['level'] != 'teacher'){
-			?>
-			<div id="itemManage">
-				<div id="items">
-					<input name="nameOfItem" type="text" placeholder="Item Name">
-					<input name="description" type="text" placeholder="Item description">
-					<input name="serial" type="text" placeholder="serial number">
-					<button onclick="createItem();">Create Item</button>
-					<select name="itemsList">
-						<?php
-							$itemInfo = listOptions("Select name,id from items");
-							foreach($itemInfo as $item) {
-								echo "<option data-id='" . $item[1] . "' value='" . $item[0] .  "'>" . $item[0] . "</option>";
-							}
-						?>
-					</select>
-					<button onclick="deleteItem();">Delete Item</button>
-					<div id="currentItem">
-						<span id="currentItemName"></span>
-						<span id="currentItemDescription"></span>
-						<input type="number">
-					</div>
-				</div>
-				<div id="locations">
-					<select name="rooms">
-						<?php 
-							$rooms = listOptions("Select id,number from rooms");
-							foreach($rooms as $room) {
-								echo "<option value='" . $room[0] .  "'>" . $room[1] . "</option>";
-							}
-						 ?>
-					</select>
-					<select name="section">
+			<?php } ?>
 
-					</select>
-					<select name="containers">
+			<?php if(isset($_GET['manage']) && $_GET['manage'] == 'items'){ 
+				include('admin.manage.item.php');
+			 } 
+			 ?>
+			<?php if(isset($_GET['manage']) && $_GET['manage'] == 'accounts'){
+				include('admin.manage.accounts.php');
+			} ?>
 
-					</select>
-					<div id="currentContainer">
-
-					</div>
-					<div id="deleteBin">
-
-					</div>
-				</div>
-			</div>
-			<div id="userContainer">
-				<div id="deleteUser" class="userControl">
-					<div class="result"></div>
-					<select name="userList" >
-					<?php
-
-						$possibleUsersToModify = "select email from users where email != '" . $_SESSION['user'] . "' AND level != 'admin' AND level != 'superadmin'";
-						if($_SESSION['level'] == "superadmin")
-							$possibleUsersToModify = "select email from users where email != '" . $_SESSION['user'] . "'";
-						
-						$usersList = listOptions($possibleUsersToModify);
-
-
-						foreach ($usersList as $user) {
-							echo "<option value='{$user[0]}'>{$user[0]}</option>";
-						}			
-					?>
-					</select>
-					<button onclick="deleteUser();">Delete User</button>
-				</div>
-				<div id="createUser" class="userControl">
-					<div class="result"></div>
-					<input type="email" placeholder="email" name="email" maxlength="256"/>
-					<select name="level">
-						<?php
-
-							$queryStatement = "Select distinct(level) from users where level != 'superadmin'";
-							$query = $conn->prepare($queryStatement);
-							$query->execute();
-							while($row = $query->fetch(PDO::FETCH_NUM)){
-								echo "<option value='{$row[0]}'>{$row[0]}</option>";
-							}
-						?>
-					</select>
-					<button onclick="createUser();">Create User</button>
-				</div>
-			</div>
-			<?php }?>
-			<div>
-				<?php 
-					var_dump($_SESSION);
-				?>
-			</div>
 		</div>
 	<?php include('inc/footer.php'); ?>
