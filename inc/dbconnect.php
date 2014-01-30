@@ -1,6 +1,6 @@
 <?php
 try{
-	$conn = new PDO('mysql:host=sql102.byethost6.com;dbname=b6_13984388_Physics','b6_13984388','CSbths');
+	$conn = new PDO('mysql:host=localhost;dbname=physics_db','root','');
 }catch(Exception $e){
 	echo "DB Error";
 	die;
