@@ -112,7 +112,7 @@
 		</div>
 	</div>
 	<div>
-		<form action="" method="post" enctype="multipart/form-data" id="uploadImage">
+		<form action="upload.php" method="post" enctype="multipart/form-data" id="uploadImage">
 			<input type="file" name="csv" id="image">
 			<input type="submit" name="upload" id="upload" value="Upload">
 		</form>
