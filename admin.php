@@ -1,4 +1,7 @@
 <?php
+	ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(-1);
 	session_start();
 	if(!isset($_SESSION['user'])){
 		header("Location:index1.php");
@@ -31,6 +34,7 @@
 				background-color: red;
 			}
 		</style>
+		<script type="text/javascript" src="admin.js"></script>
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$("#locations").find("[name='rooms']")[0].onchange = function(){
@@ -99,105 +103,6 @@
 			
 
 		});
-
-		function loadDescending(nameOfCurrentLevel,func,id,nameOfDescendingSelect){
-			$("[name='" + nameOfDescendingSelect +"']").empty();
-			if(nameOfDescendingSelect == "currentContainer"){
-				$("#" + nameOfDescendingSelect).empty();
-			}
-			var t = $("#locations").find("[name='" + nameOfCurrentLevel +"']");
-			var url = "ajax.php?function=" + func + "&" + id + "=" + encodeURIComponent(t.find(":selected").val());
-			$.get(url).done(function(data){
-					var infomation = JSON.parse(data);
-				switch(id){
-					case 'roomId':
-						for (var i = 0; i < infomation.length; i++) {
-							$("[name='" + nameOfDescendingSelect +"']").append("<option value='" + infomation[i]['id'] + "'>" + infomation[i]['name'] +"</option>");
-						};
-						break;
-					case 'sectionId':
-						for (var i = 0; i < infomation.length; i++) {
-							$("[name='" + nameOfDescendingSelect +"']").append("<option value='" + infomation[i]['id'] + "'>" + infomation[i]['label'] +"</option>");
-						};
-						break;
-					case 'containerId':
-						for (var i = 0; i < infomation.length; i++) {
-							$("#" + nameOfDescendingSelect).append("<span class='movable' data-id='" + infomation[i]['id']  + "'>" + infomation[i]['name'] + "  X" + infomation[i]['quantity'] +"</span>");
-						};
-						$(".movable").draggable({
-							containment: '#itemManage'
-						});
-						break;
-					default:
-						break;
-				}	
-			});
-		}
-
-		function createUser(){
-			var email = $('#createUser').find("[name='email']")[0];
-			var level = $('#createUser').find("[name='level']")[0];
-			
-			var url = "admin.ajax.php?function=createUser&email=" + encodeURIComponent(email.value) + "&level=" + encodeURIComponent(level.value);
-					$.get(url).done(function(data){
-						($('#createUser').find('.result')[0]).innerHTML = data;
-						//There is an error code(usually 23000 meaning users added already)
-						if(!isNaN(parseInt(data))){
-							($('#createUser').find('.result')[0]).innerHTML = "The user already exists!";
-						}
-					}).fail(function(data){
-						($('#createUser').find('.result')[0]).innerHTML = "There was an MAJOR ERROR!";
-					});
-		}
-
-		function deleteUser(){
-			var accountToBeDeleted = $("[name='userList']")[0].value;
-			var url = "admin.ajax.php?function=deleteUser&email=" + encodeURIComponent(accountToBeDeleted);
-			$.get(url).done(function(data){
-				($('#deleteUser').find('.result')[0]).innerHTML = data;
-				$("[name='userList']")[0].remove($("[name='userList']")[0].selectedIndex);
-			}).fail(function(data){
-				($('#deleteUser').find('.result')[0]).innerHTML = "There was an MAJOR ERROR!";
-			});
-		}
-
-		function updatePassword(){
-			var passwords = $("[type='password']");
-			if(passwords[0].value != passwords[1].value){
-				$("#modifyMyAccount").find('.result')[0].innerHTML = "The Passwords Don't Match!";
-				return;
-			}
-			var url = "admin.ajax.php?function=updatePassword&password=" + encodeURIComponent(passwords[0].value);
-			$.get(url).done(function(data){
-				($('#modifyMyAccount').find('.result')[0]).innerHTML = data;
-			}).fail(function(data){
-				($('#deleteUser').find('.result')[0]).innerHTML = "There was an MAJOR ERROR!";
-			});
-
-		}
-
-		function createItem(){
-			var itemName = $("#items").find("[name='nameOfItem']")[0].value;
-			var description = $("#items").find("[name='description']")[0].value;
-			var serial = $("#items").find("[name='serial']")[0].value;
-			if(itemName == ""){
-				return;
-			}
-			var url = "admin.ajax.php?function=createItem&name=" + encodeURIComponent(itemName) + "&description=" + encodeURIComponent(description) + "&serial=" + encodeURIComponent(serial);
-			$.get(url).done(function(data){
-				alert("You made a " + itemName);
-				$("[name='itemsList']").append("<option data-id='" + data + "' value='" + itemName + "'>" + itemName +"</option>"); 
-			});
-		}
-
-		function deleteItem(itemId){
-			var itemId = $("[name='itemsList']").find(":selected").attr("data-id");
-			var url = "admin.ajax.php?function=deleteItem&itemId=" + encodeURIComponent(itemId);
-			$.get(url).done(function(data){
-				alert("It has been deleted");
-				$("[name='itemsList']")[0].remove($("[name='itemsList']").find("[data-id='" + data + "']")); 
-			});
-		}
 		</script>
 		
 	</head>
@@ -211,7 +116,7 @@
 				<button onclick="updatePassword();">Change my password!</button>
 			</div>
 			<?php 
-				if(isset($_SESSION['level']) == true && $_SESSION['level'] == 'admin'){
+				if(isset($_SESSION['level']) == true && $_SESSION['level'] != 'teacher'){
 			?>
 			<div id="itemManage">
 				<div id="items">
@@ -261,8 +166,15 @@
 				<div id="deleteUser" class="userControl">
 					<div class="result"></div>
 					<select name="userList" >
-					<?php 
-						$usersList = listOptions("select email from users where email != '" . $_SESSION['user'] . "'");
+					<?php
+
+						$possibleUsersToModify = "select email from users where email != '" . $_SESSION['user'] . "' AND level != 'admin' AND level != 'superadmin'";
+						if($_SESSION['level'] == "superadmin")
+							$possibleUsersToModify = "select email from users where email != '" . $_SESSION['user'] . "'";
+						
+						$usersList = listOptions($possibleUsersToModify);
+
+
 						foreach ($usersList as $user) {
 							echo "<option value='{$user[0]}'>{$user[0]}</option>";
 						}			
@@ -274,8 +186,9 @@
 					<div class="result"></div>
 					<input type="email" placeholder="email" name="email" maxlength="256"/>
 					<select name="level">
-						<?php 
-							$queryStatement = "select distinct(level) from users";
+						<?php
+
+							$queryStatement = "Select distinct(level) from users where level != 'superadmin'";
 							$query = $conn->prepare($queryStatement);
 							$query->execute();
 							while($row = $query->fetch(PDO::FETCH_NUM)){
@@ -287,6 +200,11 @@
 				</div>
 			</div>
 			<?php }?>
+			<div>
+				<?php 
+					var_dump($_SESSION);
+				?>
+			</div>
 		</div>
 	</body>
 </html>
