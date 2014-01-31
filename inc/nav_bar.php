@@ -4,27 +4,27 @@
  ?>
  <h3 class="grid_12">
  	<ul>
- 		<li>
+ 		<li class="grid_2">
  			<a href="index1.php">Index</a>
  		</li>
- 		<li>
+ 		<li class="grid_2">
  			<a href="equipment.php">Equipment</a>
  		</li>
- 		<li>
+ 		<li class="grid_2">
  			<a href='admin.php'>Administator Page</a>
  		</li>
 		<?php if(isset($_SESSION['user']) && ($_SESSION['level'] == "admin") || ($_SESSION['level'] == "superadmin")){ ?>
 		
-			<li>
+			<li class="grid_2">
 				<a href='admin.php?manage=accounts'>Manage Accounts</a>
-			</li>
-			<li>
+			</li class="grid_2">
+			<li class="grid_2">
 				<a href='admin.php?manage=items'>Manage Items</a>
 			</li>
 		
 		<?php } ?>
  		
- 		<li>
+ 		<li class="grid_1">
  			<a href="logout.php">Logout</a>
  		</li>
  	</ul>

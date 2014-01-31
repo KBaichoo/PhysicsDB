@@ -1,5 +1,6 @@
 <div id="userContainer">
 	<div id="deleteUser" class="userControl">
+		<h3>Delete User</h3>
 		<div class="result"></div>
 		<?php
 
@@ -10,7 +11,7 @@
 			$usersList = listOptions($possibleUsersToModify);
 
 			?>
-			<ul>
+			<ul class="grid_12">
 			<?php 	
 			
 				foreach ($usersList as $user) {
@@ -27,6 +28,7 @@
 			</ul>
 	</div>
 	<div id="createUser" class="userControl">
+		<h3>Create Users</h3>
 		<div class="result"></div>
 		<input type="email" placeholder="email" name="email" maxlength="256"/>
 		<select name="level">
