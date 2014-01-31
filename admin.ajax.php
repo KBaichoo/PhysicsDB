@@ -19,7 +19,8 @@
 		global $conn;
 		$queryStatement = "Delete from users where email = '{$email}'";
 		$query = $conn->prepare($queryStatement);
-		return $email . "'s account was deleted.";
+		$query->execute();
+		return $email;
 	}
 
 	function updatePassword($password){

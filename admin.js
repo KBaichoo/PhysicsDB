@@ -48,12 +48,16 @@ function loadDescending(nameOfCurrentLevel,func,id,nameOfDescendingSelect){
 					});
 		}
 
-		function deleteUser(){
-			var accountToBeDeleted = $("[name='userList']")[0].value;
+		function deleteUser(userElement){
+			var accountToBeDeleted = $($(userElement).parent()).attr('data-user');
+
 			var url = "admin.ajax.php?function=deleteUser&email=" + encodeURIComponent(accountToBeDeleted);
 			$.get(url).done(function(data){
-				($('#deleteUser').find('.result')[0]).innerHTML = data;
+				
+				/*($('#deleteUser').find('.result')[0]).innerHTML = data;
 				$("[name='userList']")[0].remove($("[name='userList']")[0].selectedIndex);
+				*/
+				$("[data-user='" + data + "']").remove();
 			}).fail(function(data){
 				($('#deleteUser').find('.result')[0]).innerHTML = "There was an MAJOR ERROR!";
 			});

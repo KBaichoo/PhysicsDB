@@ -1,7 +1,6 @@
 <div id="userContainer">
 	<div id="deleteUser" class="userControl">
 		<div class="result"></div>
-		<select name="userList" >
 		<?php
 
 			$possibleUsersToModify = "select email from users where email != '" . $_SESSION['user'] . "' AND level != 'admin' AND level != 'superadmin'";
@@ -10,13 +9,22 @@
 			
 			$usersList = listOptions($possibleUsersToModify);
 
+			?>
+			<ul>
+			<?php 	
+			
+				foreach ($usersList as $user) {
+			?>
+				<li data-user="<?php echo $user[0]; ?>">
+					<?php echo $user[0]; ?>
+					<span onclick="deleteUser(this);">X</span>
+				</li>
 
-			foreach ($usersList as $user) {
-				echo "<option value='{$user[0]}'>{$user[0]}</option>";
-			}			
-		?>
-		</select>
-		<button onclick="deleteUser();">Delete User</button>
+			<?php
+
+				}			
+			?>
+			</ul>
 	</div>
 	<div id="createUser" class="userControl">
 		<div class="result"></div>

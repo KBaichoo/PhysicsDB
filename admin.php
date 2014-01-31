@@ -37,7 +37,7 @@
 	</head>
 	<body>
 		<?php include('inc/nav_bar.php'); ?>
-		<div id="outerContainer">
+		<div id="outerContainer" class="container">
 
 			<?php if(count($_GET) == 0){ ?>
 			<div id="modifyMyAccount">
