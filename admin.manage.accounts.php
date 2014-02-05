@@ -1,6 +1,6 @@
 <div id="userContainer">
-	<div id="deleteUser" class="userControl">
-		<h3>Delete User</h3>
+	<div id="deleteUser" class="userControl panel panel-primary">
+		<h3 class="panel-heading">Delete User</h3>
 		<div class="result"></div>
 		<?php
 
@@ -11,7 +11,7 @@
 			$usersList = listOptions($possibleUsersToModify);
 
 			?>
-			<ul class="grid_12">
+			<ul class="panel-body">
 			<?php 	
 			
 				foreach ($usersList as $user) {
@@ -27,21 +27,26 @@
 			?>
 			</ul>
 	</div>
-	<div id="createUser" class="userControl">
-		<h3>Create Users</h3>
-		<div class="result"></div>
-		<input type="email" placeholder="email" name="email" maxlength="256"/>
-		<select name="level">
-			<?php
+	<aside>
+		//Details load here!
+	</aside>
+	<div id="createUser" class="userControl panel panel-primary">
+		<h3 class="panel-heading">Create Users</h3>
+		<div class="panel-body"> 
+			<div class="result"></div>
+			<input type="email" placeholder="email" name="email" maxlength="256"/>
+			<select name="level">
+				<?php
 
-				$queryStatement = "Select distinct(level) from users where level != 'superadmin'";
-				$query = $conn->prepare($queryStatement);
-				$query->execute();
-				while($row = $query->fetch(PDO::FETCH_NUM)){
-					echo "<option value='{$row[0]}'>{$row[0]}</option>";
-				}
-			?>
-		</select>
-		<button onclick="createUser();">Create User</button>
+					$queryStatement = "Select distinct(level) from users where level != 'superadmin'";
+					$query = $conn->prepare($queryStatement);
+					$query->execute();
+					while($row = $query->fetch(PDO::FETCH_NUM)){
+						echo "<option value='{$row[0]}'>{$row[0]}</option>";
+					}
+				?>
+			</select>
+			<button class="btn-primary" onclick="createUser();">Create User</button>
+		</div>
 	</div>
 </div>

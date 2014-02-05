@@ -40,12 +40,15 @@
 		<div id="outerContainer" class="container">
 
 			<?php if(count($_GET) == 0){ ?>
-			<div id="modifyMyAccount">
-				<div class="result"></div>
-				To change your password <?php echo $_SESSION['user'] ?> simply type it here 
-				<input type="password">
-				<input type="password">
-				<button onclick="updatePassword();">Change my password!</button>
+			<div id="modifyMyAccount" class="panel panel-primary">
+				<h3 class="panel-heading">Change My Password</h3>
+				<div class="panel-body">
+					<div class="result"></div>
+					To change your password <?php echo $_SESSION['user'] ?> simply type it here 
+					<input type="password" placeholder="password">
+					<input type="password" placeholder="password">
+					<button onclick="updatePassword();">Change my password!</button>
+				</div>
 			</div>
 			<?php } ?>
 

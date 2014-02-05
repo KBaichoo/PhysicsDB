@@ -69,16 +69,16 @@
 	});
 </script>
 <div id="itemManage">
-	<div id="items">
-		<h3>Create Items</h3>
-		<div>
+	<div id="items" class="panel panel-danger">
+		<h3 class="panel-heading">Create Items</h3>
+		<div class="panel-body">
 			<input name="nameOfItem" type="text" placeholder="Item Name">
 			<input name="description" type="text" placeholder="Item description">
 			<input name="serial" type="text" placeholder="serial number">
 			<button onclick="createItem();">Create Item</button>
 		</div>
-		<h3>Delete Items</h3>
-		<div>
+		<h3 class="panel-heading">Delete Items</h3>
+		<div class="panel-body">
 			<select name="listOfItems">
 				<?php
 					$itemInfo = listOptions("Select name,id from items");
@@ -88,47 +88,59 @@
 				?>
 			</select>
 			<button onclick="deleteItem();">Delete Item</button>
-		</div>
-		<h3>Place Item</h3>
-		<div>
-			<select name="itemsList">
-				<?php
-					$itemInfo = listOptions("Select name,id from items");
-					foreach($itemInfo as $item) {
-						echo "<option data-id='" . $item[1] . "' value='" . $item[0] .  "'>" . $item[0] . "</option>";
+		</div>	
+	</div>
+
+	<div id="locations" class="panel panel-primary">
+	<h3 class="panel-heading">Place Item</h3>
+		<div class="panel-body">
+			<div>
+				<select name="itemsList">
+					<?php
+						$itemInfo = listOptions("Select name,id from items");
+						foreach($itemInfo as $item) {
+							echo "<option data-id='" . $item[1] . "' value='" . $item[0] .  "'>" . $item[0] . "</option>";
+						}
+					?>
+				</select>
+			</div>
+			<div id="currentItem">
+				<span id="currentItemName"></span>
+				<span id="currentItemDescription"></span>
+				<input type="number">
+			</div>
+		
+			<select name="rooms">
+				<?php 
+					$rooms = listOptions("Select id,number from rooms");
+					foreach($rooms as $room) {
+						echo "<option value='" . $room[0] .  "'>" . $room[1] . "</option>";
 					}
-				?>
+				 ?>
 			</select>
-		</div>
-		<div id="currentItem">
-			<span id="currentItemName"></span>
-			<span id="currentItemDescription"></span>
-			<input type="number">
+			<select name="section">
+
+			</select>
+			<select name="containers">
+
+			</select>
+			<div id="currentContainer">
+
+			</div>
+			<div id="deleteBin">
+		
+			</div>
 		</div>
 	</div>
-	<div id="locations">
-		<select name="rooms">
-			<?php 
-				$rooms = listOptions("Select id,number from rooms");
-				foreach($rooms as $room) {
-					echo "<option value='" . $room[0] .  "'>" . $room[1] . "</option>";
-				}
-			 ?>
-		</select>
-		<select name="section">
+	<div id="templateQuery">
+		Set the template of your CSV here!
+		Please MATCH UP the data with the columns correctly otherwise there might be a failed query!
+		<form>
 
-		</select>
-		<select name="containers">
-
-		</select>
-		<div id="currentContainer">
-
-		</div>
-		<div id="deleteBin">
-
-		</div>
+		</form>
 	</div>
 	<div>
+		<h1>Upload Items!</h1>
 		<form action="upload.php" method="post" enctype="multipart/form-data" id="uploadImage">
 			<input type="file" name="csv" id="image">
 			<input type="submit" name="upload" id="upload" value="Upload">

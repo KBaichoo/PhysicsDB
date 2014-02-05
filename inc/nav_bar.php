@@ -2,8 +2,8 @@
 
 
  ?>
- <h3 class="grid_12">
- 	<ul>
+ <h3 class="navbar navbar-default">
+ 	<ul class="navbar-nav navbar-static-top">
  		<li class="grid_2">
  			<a href="index1.php">Index</a>
  		</li>
@@ -11,7 +11,7 @@
  			<a href="equipment.php">Equipment</a>
  		</li>
  		<li class="grid_2">
- 			<a href='admin.php'>Administator Page</a>
+ 			<a href='admin.php'>My Account!</a>
  		</li>
 		<?php if(isset($_SESSION['user']) && ($_SESSION['level'] == "admin") || ($_SESSION['level'] == "superadmin")){ ?>
 		
