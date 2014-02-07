@@ -1,125 +1,100 @@
 <?php
-
+	$pageName = "Equipment Page";
 	$needDB = true;
+
 	include('inc/header.php');
 
-
-	$queryStatement = "select name,id from items";
-	$query = $conn->prepare($queryStatement);
+	$query = $conn->prepare("select * from rooms");
 	$query->execute();
-
+	$rooms = $query->fetchAll();
+	for($i = 0; $i < count($rooms); $i++)
+	{
+		$query = $conn->prepare("select * from sections where room_id = " . $rooms[$i]["id"]);
+		$query->execute();
+		$rooms[$i]["sections"] = $query->fetchAll();
+		for($x = 0; $x < count($rooms[$i]["sections"]); $x++)
+		{
+			$query = $conn->prepare("select * from containers where section_id = " . $rooms[$i]["sections"][$x]["id"]);
+			$query->execute();
+			$rooms[$i]["sections"][$x]["containers"] = $query->fetchAll();
+			for($y = 0; $y < count($rooms[$i]["sections"][$x]["containers"]); $y++)
+			{
+				$query = $conn->prepare("select * from items where id in (select item_id from container_item_assignments where container_id = " . $rooms[$i]["sections"][$x]["containers"][$y]["id"] . ")");
+				$query->execute();
+				$rooms[$i]["sections"][$x]["containers"][$y]["items"] = $query->fetchAll();
+			}
+		}
+	}
 ?>
-
-		<style type="text/css">
-@import url(http://fonts.googleapis.com/css?family=Lora);
-#container{
-    width:960px;
-    border:1px solid black;
-    font:28px Lora;
-    margin:auto;
-    text-align:center;
-}
-
-.equipment{
-    border:1px solid red;
-    width:350px;
-}
-.item_info{
-		    border:1px solid black;
-		    display:inline-block;
-		    margin-left:2px;
-		    width:500px;
-		    left:375px;
-		    position:relative;
-}
-
-		.closeBtn{
-		    position:absolute;
-		    top:0px;
-		    right:0px;
-		    color:lightgrey;
-		    font-size:18px;
-		    z-index: 2;
+	<style>
+		.room-sections{
+			display:none;
 		}
-		.closeBtn:hover{
-		    color:grey;
+		.sections-containers{
+			display:none;
 		}
-
-		.description{
-		    display:block;
+		.container-items{
+			display:none;
 		}
-
-		.locationsTop{
-		    display:block;
-		    text-align:center;
-		    width:350px;
-		    margin:auto;
-		}
-
-		.locationInfo{
-		    display:block;
-		}
-		</style>
-		<script type="text/javascript">
-			function makeElement(element,innerHTML,className,id){
-				theElement = document.createElement(element);
-				theElement.innerHTML = innerHTML;
-				if(className){
-					theElement.setAttribute("class",className);
-				}
-				if(id){
-					theElement.setAttribute("id",id);
-				}
-				return theElement;
-			}
-
-			function toggleInfo(itemId,element){
-				if($(element).find(".item_info").length === 0 ){
-					var url = "ajax.php?function=itemDetails&itemId=" + itemId;
-					$.get(url).done(function(data){
-
-						itemData = JSON.parse(data);
-						//Makes container for information
-						var container = makeElement('div',"",'item_info');
-						
-						//makes button to toggle close
-						var closeBtn = makeElement('span','X','closeBtn');
-						closeBtn.setAttribute('onclick','close(' + itemId + ');');
-						container.appendChild(closeBtn);
-
-						//Description of the item
-						var description = makeElement("span","Description:",'description');
-						description.innerHTML += itemData[0];
-						if(itemData[0] == ""){
-							description.innerHTML += "No Description Avaliable";
-						}
-						container.appendChild(description);
-						
-
-						var locations = makeElement('span','Quantity x Location','locationsTop');
-						for(var i = 0; i < itemData[1].length; i++){
-							var currData = itemData[1][i];
-							var str = currData['quantity'] + ' X ' + currData['room']['room_number']  + ' in section ' + currData['room']['section_name'] + ' in ' + currData['section']['container_type']  + ' with label ' + currData['section']['container_label'];
-							locations.appendChild(makeElement('span',str,'locationInfo'));
-						}
-						container.appendChild(locations);
-						element.appendChild(container);
-					});
-				}
-			}
-			
-			/*function close(parentNumber){
-				$($(".equipment")[parentNumber - 1]).hide();
-			}*/
-		</script>
+	</style>
+	<script>
+		$(document).ready(function(){
+			$(".room-name").on("click", function(){
+				$(this).siblings(".room-sections").toggle();
+			});
+		});
+		$(document).ready(function(){
+			$(".section-name").on("click", function(){
+				$(this).siblings(".section-containers").toggle();
+			});
+		});
+		$(document).ready(function(){
+			$(".container-name").on("click", function(){
+				$(this).siblings(".container-items").toggle();
+			});
+		});
+	</script>
 	</head>
 	<body>
-		<div id="container">
-		<?php 
-			while($item = $query->fetch(PDO::FETCH_ASSOC)) {
-				echo "<div class='equipment' onclick='toggleInfo(".$item['id'] .",this)'>" . $item['name'] . "</div>";
-			}
-		?>
+		<div class="container">
+			<div class="col-mid-4">
+				
+			</div>
+			<div class="col-mid-4">
+				<div class="rooms">
+					<?php
+						foreach($rooms as $room)
+						{
+							echo("<div class=\"room\">");
+								echo("<div class=\"room-name\">". $room['name'] . "</div>");
+								echo("<div class=\"room-sections\">");
+									foreach($room["sections"] as $section)
+									{
+										echo("<div class=\"section\">");
+											echo("<div class=\"section-name\">" . $section['name'] . "</div>");
+											echo("<div class=\"section-containers\">");
+												foreach($section["containers"] as $container)
+												{
+													echo("<div class=\"container-name\">" . $container['type'] . " " . $container['label'] . "</div>");
+													echo("<div class=\"container-items\">");
+														foreach($container["items"] as $item)
+														{
+															echo("<div class=\"item-name\">" . $item["name"] . "</div>");
+														}
+													echo("</div>");
+												}
+											echo("</div>");
+										echo("</div>");
+									}
+								echo("</div>");
+							echo("</div>");
+						}
+					?>
+				</div>
+			</div>
+			<div class="col-mid-4">
+				
+			</div>
 		</div>
 	</body>
 </html>
