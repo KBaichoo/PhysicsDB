@@ -51,7 +51,8 @@ class UsersController extends BaseController {
 	 */
 	public function edit($id)
 	{
-        return View::make('users.edit');
+		$user = User::findOrFail($id);
+        return View::make('users.edit',compact('user'));
 	}
 
 	/**
@@ -62,7 +63,12 @@ class UsersController extends BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$user = User::findOrFail($id);
+		$user->fill(Input::all());
+
+		$user->save();
+
+		return Redirect::to('/users');
 	}
 
 	/**
