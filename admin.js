@@ -48,16 +48,21 @@ function loadDescending(nameOfCurrentLevel,func,id,nameOfDescendingSelect){
 					});
 		}
 
+		/**
+			Deletes a user by their ID.
+		 */
 		function deleteUser(userElement){
-			var accountToBeDeleted = $($(userElement).parent()).attr('data-user');
+			var accountToBeDeleted = $(userElement).attr('data-user');
 
-			var url = "admin.ajax.php?function=deleteUser&email=" + encodeURIComponent(accountToBeDeleted);
+			var url = "admin.ajax.php?function=deleteUserById&id=" + encodeURIComponent(accountToBeDeleted);
 			$.get(url).done(function(data){
-				
-				/*($('#deleteUser').find('.result')[0]).innerHTML = data;
-				$("[name='userList']")[0].remove($("[name='userList']")[0].selectedIndex);
-				*/
-				$("[data-user='" + data + "']").remove();
+				if(isNaN(data)){
+					alert(data);
+				}else{
+				parent.$("[data-user='" + data + "']").remove();
+					console.log("data");
+				}
+				parent.$.fancybox.close();
 			}).fail(function(data){
 				($('#deleteUser').find('.result')[0]).innerHTML = "There was an MAJOR ERROR!";
 			});

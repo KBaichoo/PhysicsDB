@@ -23,6 +23,17 @@
 		return $email;
 	}
 
+	function deleteUserById($id){
+		global $conn;
+		if($_SESSION['userModifying'] != $id){
+			return "That user cannot currently be deleted. Modify Users one at a time. Try again later.";
+		}
+		$queryStatement = "Delete from users where id = '{$id}'";
+		$query = $conn->prepare($queryStatement);
+		$query->execute();
+		return $id;
+	}
+
 	function updatePassword($password){
 		global $conn;
 		$password = md5($password);
@@ -109,6 +120,9 @@
 			break;
 		case 'removeItem':
 			echo removeItem($_GET['itemId'],$_GET['container']);
+			break;
+		case 'deleteUserById':
+			echo deleteUserById($_GET['id']);
 			break;
 		default:
 			return;								

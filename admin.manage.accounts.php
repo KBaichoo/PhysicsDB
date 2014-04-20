@@ -35,7 +35,7 @@
 			
 				foreach ($usersList as $user) {
 			?>
-				<li data-user="<?php echo $user[0]; ?>" style="list-style-type:none;">
+				<li data-user="<?php echo $user[1]; ?>" style="list-style-type:none;">
 					<span href="./admin.modify.user.php?userId=<?php echo $user[1] ?>" title="<?php echo $user[0]; ?>" class="fancybox fancy.iframe" ><?php echo $user[0]; ?></span>
 				</li>
 			<?php
