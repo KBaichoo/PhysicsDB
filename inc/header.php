@@ -5,7 +5,13 @@
 	 */
 
 	session_start();
-	if(!isset($_SESSION['user'])){
+
+	//prevents infinte loop on login page
+	if(!isset($loginPage)){
+		$loginPage = false;
+	}	
+
+	if(!isset($_SESSION['user']) && $loginPage == false){
 		header("Location:login.php");
 		exit;
 	}

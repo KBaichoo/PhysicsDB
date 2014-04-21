@@ -1,11 +1,10 @@
 <?php
-	
+	$loginPage = true;
+	$pageName = "login";
+	require('./inc/header.php');
 
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Login</title>
+
 	</head>
 	<body>
 		<form id="loginForm" method="POST" action="attemptlogin.php">
