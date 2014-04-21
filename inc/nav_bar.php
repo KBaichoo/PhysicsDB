@@ -8,7 +8,7 @@
  			<a href="index1.php">Index</a>
  		</li>
  		<li class="grid_2">
- 			<a href="equipment.php">Equipment</a>
+ 			<a href="equipment_list.php">Equipment</a>
  		</li>
  		<li class="grid_2">
  			<a href='admin.php'>My Account!</a>
