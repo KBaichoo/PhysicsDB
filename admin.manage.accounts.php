@@ -7,11 +7,12 @@
 			<select name="level">
 				<?php
 
-					$queryStatement = "Select distinct(level) from users where level != 'superadmin'";
-					$query = $conn->prepare($queryStatement);
-					$query->execute();
-					while($row = $query->fetch(PDO::FETCH_NUM)){
-						echo "<option value='{$row[0]}'>{$row[0]}</option>";
+					require('inc/level_dropdown.php');
+
+					$levelsAvaliable = getLevels($_SESSION['level']);
+
+					foreach ($levelsAvaliable as $level) {
+						echo "<option value='{$level}'>{$level}</option>";
 					}
 				?>
 			</select>

@@ -35,7 +35,7 @@
 		<script type="text/javascript" src="admin.js"></script>
 
 		<?php /* If on the accounts page import fancybox. */ ?>
-		<?php if($_GET['manage'] == 'accounts'): ?>
+		<?php if(isset($_GET['manage']) && $_GET['manage'] == 'accounts'): ?>
 			<link rel="stylesheet" href="./fancybox/jquery.fancybox.css" type="text/css" media="screen" />
     	<script type="text/javascript" src="./fancybox/jquery.fancybox.pack.js"></script>
     	<script>
