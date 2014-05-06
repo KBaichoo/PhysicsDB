@@ -3,19 +3,19 @@
 		<h3 class="panel-heading">Create Users</h3>
 		<div class="panel-body"> 
 			<div class="result"></div>
-			<input type="email" placeholder="email" name="email" maxlength="256"/>
-			<select name="level">
-				<?php
+				<input class="form-control input-lg" type="email" placeholder="email" name="email" maxlength="256"/>
+				<select class="form-control" name="level">
+					<?php
 
-					require('inc/level_dropdown.php');
+						require('inc/level_dropdown.php');
 
-					$levelsAvaliable = getLevels($_SESSION['level']);
+						$levelsAvaliable = getLevels($_SESSION['level']);
 
-					foreach ($levelsAvaliable as $level) {
-						echo "<option value='{$level}'>{$level}</option>";
-					}
-				?>
-			</select>
+						foreach ($levelsAvaliable as $level) {
+							echo "<option value='{$level}'>{$level}</option>";
+						}
+					?>
+				</select>
 			<button class="btn-primary" onclick="createUser();">Create User</button>
 		</div>
 	</div>

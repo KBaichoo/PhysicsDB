@@ -64,9 +64,9 @@
 				<div class="panel-body">
 					<div class="result"></div>
 					To change your password <?php echo $_SESSION['user'] ?> simply type it here 
-					<input type="password" placeholder="password">
-					<input type="password" placeholder="password">
-					<button onclick="updatePassword();">Change my password!</button>
+					<input class="input-lg" type="password" placeholder="password">
+					<input class="input-lg" type="password" placeholder="password">
+					<button class="btn btn-primary" onclick="updatePassword();">Change my password!</button>
 				</div>
 			</div>
 			<?php } ?>

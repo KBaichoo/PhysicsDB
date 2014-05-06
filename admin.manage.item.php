@@ -78,14 +78,14 @@
 		<div id="items" class="panel panel-danger">
 			<h3 class="panel-heading">Create Items</h3>
 			<div class="panel-body">
-				<input name="nameOfItem" type="text" placeholder="Item Name">
-				<input name="description" type="text" placeholder="Item description">
-				<input name="serial" type="text" placeholder="serial number">
-				<button onclick="createItem();">Create Item</button>
+				<input class="input-lg" name="nameOfItem" type="text" placeholder="Item Name">
+				<input class="input-lg" name="description" type="text" placeholder="Item description">
+				<input class="input-lg" name="serial" type="text" placeholder="serial number">
+				<button class="btn btn-success" onclick="createItem();">Create Item</button>
 			</div>
 			<h3 class="panel-heading">Delete Items</h3>
 			<div class="panel-body">
-				<select name="listOfItems">
+				<select name="listOfItems" class="form-control">
 					<?php
 						$itemInfo = listOptions("Select name,id from items");
 						foreach($itemInfo as $item) {
@@ -93,7 +93,7 @@
 						}
 					?>
 				</select>
-				<button onclick="deleteItem();">Delete Item</button>
+				<button class="btn btn-danger" onclick="deleteItem();">Delete Item</button>
 			</div>	
 		</div>
 	<?php endif; ?>

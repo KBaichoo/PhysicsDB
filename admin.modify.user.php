@@ -69,7 +69,7 @@
 	?>
 	<h1><?php echo $results['email']; ?></h1>
 	<h2>Change Privelege(<?php echo $results['level']; ?>)</h2>
-	<select name="level">
+	<select name="level" class="form-control">
 	<?php 
 		require('inc/level_dropdown.php');
 
@@ -80,8 +80,8 @@
 		}
 	?>
 	</select>
-	<button onclick="changeLevel('level');">Change Level</button>
+	<button class="btn btn-warning" onclick="changeLevel('level');">Change Level</button>
 	<h2>Reset Password</h2>
-	<a href="email.php?id=<?php echo $_SESSION['userModifying']; ?>">Reset</a>
-	<h5 data-user="<?php echo $_SESSION['userModifying']; ?>" onclick="deleteUser(this);">Delete User</h5>
+	<a href="email.php?id=<?php echo $_SESSION['userModifying']; ?>"><button class="btn btn-info btn-sm">Reset</button></a>
+	<h5 data-user="<?php echo $_SESSION['userModifying']; ?>" onclick="deleteUser(this);"><button class="btn btn-danger btn-xs">Delete User</button></h5>
 	<?php include('inc/footer.php'); ?>
