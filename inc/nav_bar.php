@@ -26,9 +26,6 @@
 							<li>
 							<a href='admin.php?manage=accounts'>Manage Accounts</a>
 							</li>
-							<!--<li>
-							<a href='admin.php?manage=items'>Manage Items</a>
-							</li>-->
 							<li class="dropdown">
 				        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Items<b class="caret"></b></a>
 				        <ul class="dropdown-menu">

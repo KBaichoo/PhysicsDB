@@ -77,7 +77,7 @@
 			$levelsAvaliable = getLevels($_SESSION['level']);
 
 			foreach ($levelsAvaliable as $level) {
-				echo "<option value='{$level}'>{$level}</option>";
+				echo "<option value='{$level}'>" . strtoupper($level) . "</option>";
 			}
 		?>
 		</select>	

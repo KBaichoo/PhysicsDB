@@ -3,23 +3,33 @@
 		<h3 class="panel-heading">Create Users</h3>
 		<div class="panel-body"> 
 			<div class="result"></div>
-				<div class="form-group col-lg-5">
-					<input class="form-control" type="email" placeholder="email" name="email" maxlength="256"/>
-				</div>
-				<div class="form-group col-lg-3">
-					<select class="form-control" name="level">
-						<?php
+				<form class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label for="email-input" class="col-lg-1 control-label label-lg-b">Email</label>
+							<div class="col-lg-8">
+								<input class="form-control" id="email-input" type="email" placeholder="email" name="email" maxlength="256"/>     
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="priv-input" class="col-lg-1 control-label label-lg-b">Level</label>							
+							<div class="col-lg-3 col-md-5">
+								<select class="form-control" id="priv-input">
+									<?php
 
-							require('inc/level_dropdown.php');
+										require('inc/level_dropdown.php');
 
-							$levelsAvaliable = getLevels($_SESSION['level']);
+										$levelsAvaliable = getLevels($_SESSION['level']);
 
-							foreach ($levelsAvaliable as $level) {
-								echo "<option value='{$level}'>{$level}</option>";
-							}
-						?>
-					</select>
-				</div>
+										foreach ($levelsAvaliable as $level) {
+											echo "<option value='{$level}'>" . strtoupper($level) ."</option>";
+										}
+									?>
+								</select>
+							</div>
+						</div>
+					</fieldset>
+				</form>
 			<button class="btn-primary" onclick="createUser();">Create User</button>
 		</div>
 	</div>
