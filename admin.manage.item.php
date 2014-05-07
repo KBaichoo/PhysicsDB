@@ -68,11 +68,6 @@
 
 	});
 </script>
-<div class="aside">
-	<a href="?manage=items&operation=cd">Create and Delete Items</a>
-	<a href="?manage=items&operation=iu">Place Items</a>
-	<a href="?manage=items&operation=bulk">Preform Bulk Operations</a>
-</div>
 <div id="itemManage">
 	<?php if(isset($_GET['operation']) && $_GET['operation'] == "cd"): ?>
 		<div id="items" class="panel panel-danger">
@@ -103,7 +98,7 @@
 		<h3 class="panel-heading">Place Item</h3>
 			<div class="panel-body">
 				<div>
-					<select name="itemsList">
+					<select class="form-control" name="itemsList">
 						<?php
 							$itemInfo = listOptions("Select name,id from items");
 							foreach($itemInfo as $item) {
@@ -117,21 +112,27 @@
 					<span id="currentItemDescription"></span>
 					<input type="number">
 				</div>
-			
-				<select name="rooms">
-					<?php 
-						$rooms = listOptions("Select id,number from rooms");
-						foreach($rooms as $room) {
-							echo "<option value='" . $room[0] .  "'>" . $room[1] . "</option>";
-						}
-					 ?>
-				</select>
-				<select name="section">
+				<div class="form-group col-lg-4">
+					<select class="form-control" name="rooms">
+						<?php 
+							$rooms = listOptions("Select id,number from rooms");
+							foreach($rooms as $room) {
+								echo "<option value='" . $room[0] .  "'>" . $room[1] . "</option>";
+							}
+						 ?>
+					</select>
+				</div>
+				<div class="form-group col-lg-4">
+					<select class="form-control" name="section">
 
-				</select>
-				<select name="containers">
+					</select>
+				</div>
+				<div class="form-group col-lg-4">
+					<select class="form-control" name="containers">
 
-				</select>
+					</select>
+				</div>
+				<div><hr></div>
 				<div id="currentContainer">
 
 				</div>
@@ -159,6 +160,11 @@
 	<?php endif; ?>
 
 	<?php if(!isset($_GET['operation']) || (($_GET['operation'] != "bulk") && ($_GET['operation'] != "iu") && ($_GET['operation'] != "cd"))): ?>
+		<div class="aside">
+			<a href="?manage=items&operation=cd">Create and Delete Items</a>
+			<a href="?manage=items&operation=iu">Place Items</a>
+			<a href="?manage=items&operation=bulk">Preform Bulk Operations</a>
+		</div>
 		<div>
 			Filler information about the panels. Maybe recent changes?
 		</div>	

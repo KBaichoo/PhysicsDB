@@ -22,14 +22,22 @@
 ?>
 		<style type="text/css">
 			#deleteBin{
-				width:200px;
+				width:335px;
 				height: 200px;
 				background-color: red;
+				background-image: url('./css/remove.png');
+				background-repeat: no-repeat;
+				background-position: center;
 			}
 			#currentContainer{
 				width: 450px;
-				height: 200px;
-				background-color: blue;
+				height: 250px;
+				background-color: black;
+				margin-bottom: 10px;
+				background-image: url('./css/add.png');
+				background-repeat: no-repeat;
+				background-position: center;
+
 			}
 		</style>
 		<script type="text/javascript" src="admin.js"></script>

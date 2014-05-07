@@ -13,7 +13,7 @@
 	          <span class="icon-bar"></span>
 	          <span class="icon-bar"></span>
 	        </button>
-	        <a href="index1.php">Physics System</a>
+	        <a class="navbar-brand" href="index1.php">Physics System</a>
 	      </div>
 
 	      <!-- Collect the nav links, forms, and other content for toggling -->
@@ -26,9 +26,17 @@
 							<li>
 							<a href='admin.php?manage=accounts'>Manage Accounts</a>
 							</li>
-							<li>
+							<!--<li>
 							<a href='admin.php?manage=items'>Manage Items</a>
-							</li>
+							</li>-->
+							<li class="dropdown">
+				        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Items<b class="caret"></b></a>
+				        <ul class="dropdown-menu">
+				          <li><a href="admin.php?manage=items&operation=cd">Create and Delete Items</a></li>
+				          <li><a href="admin.php?manage=items&operation=iu">Place Items</a></li>
+				          <li><a href="admin.php?manage=items&operation=bulk">Bulk Operations</a></li>
+				        </ul>
+				      </li>
 
 						<?php } ?>
 						<li><a href="logout.php">Logout</a></li>      
