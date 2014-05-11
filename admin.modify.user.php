@@ -6,22 +6,6 @@
 ?>
 
 	<script type="text/javascript" src="admin.js"></script>
-	<script type="text/javascript">
-
-		function changeLevel(element) {
-			var level = $("[name='" + element + "']")[0].selectedOptions[0].value;
-
-			var url = "admin.ajax.php?function=changeUserLevel&level=" + encodeURIComponent(level) + "&id=" + "<?php echo $_GET['userId']?>";
-			$.get(url).done(function(data){
-				alert(data);
-				parent.$.fancybox.close();
-			}).fail(function(data){
-				alert("There was an MAJOR ERROR!");
-			});
-
-		}
-
-	</script>
 </head>
 <body>
 	<?php
@@ -68,19 +52,8 @@
 		$_SESSION['userModifying'] = $_GET['userId'];
 	?>
 	<h1><?php echo $results['email']; ?></h1>
-	<h2>Change Privelege(<?php echo $results['level']; ?>)</h2>
-	<select name="level">
-	<?php 
-		require('inc/level_dropdown.php');
-
-		$levelsAvaliable = getLevels($_SESSION['level']);
-
-		foreach ($levelsAvaliable as $level) {
-			echo "<option value='{$level}'>{$level}</option>";
-		}
-	?>
-	</select>
-	<button onclick="changeLevel('level');">Change Level</button>
+	<h2>Change Privelege</h2>
+	drop down
 	<h2>Reset Password</h2>
 	<a href="email.php?id=<?php echo $_SESSION['userModifying']; ?>">Reset</a>
 	<h5 data-user="<?php echo $_SESSION['userModifying']; ?>" onclick="deleteUser(this);">Delete User</h5>

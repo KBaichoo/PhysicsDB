@@ -34,17 +34,6 @@
 		return $id;
 	}
 
-	function changeUserLevel($id,$level){
-		global $conn;
-		if($_SESSION['userModifying'] != $id){
-			return "That user cannot currently be deleted. Modify Users one at a time. Try again later.";
-		}
-		$queryStatement = "Update users set level='{$level}' where id='{$id}'";
-		$query = $conn->prepare($queryStatement);
-		$query->execute();
-		return "This user is now an {$level}";
-	}
-
 	function updatePassword($password){
 		global $conn;
 		$password = md5($password);
@@ -134,9 +123,6 @@
 			break;
 		case 'deleteUserById':
 			echo deleteUserById($_GET['id']);
-			break;
-		case 'changeUserLevel':
-			echo changeUserLevel($_GET['id'],$_GET['level']);
 			break;
 		default:
 			return;								

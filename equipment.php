@@ -35,18 +35,6 @@
 	$query->execute();
 
 	$rooms = $query->fetchAll(PDO::FETCH_ASSOC);
-
-	function getName($a)
-	{
-		return $a["name"];
-	}
-
-	$queryStatement = "select name from subject_area where id in (select subject_area_id from subject_area_item_assignments where item_id = " . $item[1] . ")";
-	$query = $conn->prepare($queryStatement);
-	$query->execute();
-
-	$item["subjects"] = $query->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 		<style type="text/css">
 			.indent {
@@ -69,7 +57,6 @@
 				<div class='description'>
 					<?php echo($item['description']); ?>
 				</div>
-				<?php echo("<div class='subjects'> Subject areas: " . join(", ", array_map("getName", $item["subjects"]))); ?>
 				<h4>
 					In room(s): 
 				</h4>
