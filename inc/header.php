@@ -28,6 +28,14 @@
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link href="css/bootstrap.super.css" rel="stylesheet">
+	<style type="text/css">
+	.label-lg-b{
+		font-size: 14px;
+		font-weight: 700;
+	}
+	</style>
+
 	 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

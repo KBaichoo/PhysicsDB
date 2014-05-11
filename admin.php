@@ -22,14 +22,22 @@
 ?>
 		<style type="text/css">
 			#deleteBin{
-				width:200px;
+				width:335px;
 				height: 200px;
 				background-color: red;
+				background-image: url('./css/remove.png');
+				background-repeat: no-repeat;
+				background-position: center;
 			}
 			#currentContainer{
 				width: 450px;
-				height: 200px;
-				background-color: blue;
+				height: 250px;
+				background-color: black;
+				margin-bottom: 10px;
+				background-image: url('./css/add.png');
+				background-repeat: no-repeat;
+				background-position: center;
+
 			}
 		</style>
 		<script type="text/javascript" src="admin.js"></script>
@@ -64,10 +72,24 @@
 				<div class="panel-body">
 					<div class="result"></div>
 					To change your password <?php echo $_SESSION['user'] ?> simply type it here 
-					<input type="password" placeholder="password">
-					<input type="password" placeholder="password">
-					<button onclick="updatePassword();">Change my password!</button>
-				</div>
+					<form class="form-horizontal">
+ 						<fieldset>
+							<div class="form-group">
+					      <label for="pwd" class="col-lg-2 control-label label-lg-b">Password</label>
+					      <div class="col-lg-10">
+					      	<input class="form-control" type="password" id="pwd" placeholder="password">     
+					      </div>
+					    </div>
+							<div class="form-group">
+					      <label for="pwd-conf" class="col-lg-2 control-label label-lg-b">Password Confirmation</label>
+					      <div class="col-lg-10">
+					      	<input class="form-control" type="password" id="pwd-conf" placeholder="password">     
+					      </div>
+					    </div>
+							<button class="btn btn-primary" onclick="updatePassword();">Change my password!</button>
+						</fieldset>
+					</form>	
+					</div>
 			</div>
 			<?php } ?>
 

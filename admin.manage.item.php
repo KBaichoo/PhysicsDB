@@ -69,62 +69,71 @@
 	});
 </script>
 <div id="itemManage">
-	<div id="items" class="panel panel-danger">
-		<h3 class="panel-heading">Create Items</h3>
-		<div class="panel-body">
-			<input name="nameOfItem" type="text" placeholder="Item Name">
-			<input name="description" type="text" placeholder="Item description">
-			<input name="serial" type="text" placeholder="serial number">
-			<button onclick="createItem();">Create Item</button>
-		</div>
-		<h3 class="panel-heading">Delete Items</h3>
-		<div class="panel-body">
-			<select name="listOfItems">
+	<?php if(isset($_GET['operation']) && $_GET['operation'] == "cd"): ?>
+		<div id="items" class="panel panel-danger">
+			<h3 class="panel-heading">Create Items</h3>
+			<div class="panel-body">
+				<input class="input-lg" name="nameOfItem" type="text" placeholder="Item Name">
+				<input class="input-lg" name="description" type="text" placeholder="Item description">
+				<input class="input-lg" name="serial" type="text" placeholder="serial number">
+				<button class="btn btn-success" onclick="createItem();">Create Item</button>
+			</div>
+			<h3 class="panel-heading">Delete Items</h3>
+			<div class="panel-body">
+				<select name="listOfItems" class="form-control">
 				<?php
-					$itemInfo = listOptions("Select name,id from items");
-					foreach($itemInfo as $item) {
-						echo "<option data-id='" . $item[1] . "' value='" . $item[0] .  "'>" . $item[0] . "</option>";
-					}
-				?>
-			</select>
-			<button onclick="deleteItem();">Delete Item</button>
-		</div>	
-	</div>
-
-	<div id="locations" class="panel panel-primary">
-	<h3 class="panel-heading">Place Item</h3>
-		<div class="panel-body">
-			<div>
-				<select name="itemsList">
-					<?php
 						$itemInfo = listOptions("Select name,id from items");
 						foreach($itemInfo as $item) {
 							echo "<option data-id='" . $item[1] . "' value='" . $item[0] .  "'>" . $item[0] . "</option>";
 						}
 					?>
 				</select>
-			</div>
-			<div id="currentItem">
-				<span id="currentItemName"></span>
-				<span id="currentItemDescription"></span>
-				<input type="number">
-			</div>
-		
-			<select name="rooms">
-				<?php 
-					$rooms = listOptions("Select id,number from rooms");
-					foreach($rooms as $room) {
-						echo "<option value='" . $room[0] .  "'>" . $room[1] . "</option>";
-					}
-				 ?>
-			</select>
-			<select name="section">
+				<button class="btn btn-danger" onclick="deleteItem();">Delete Item</button>
+			</div>	
+		</div>
+	<?php endif; ?>
 
-			</select>
-			<select name="containers">
+	<?php if(isset($_GET['operation']) && $_GET['operation'] == "iu"): ?>
+		<div id="locations" class="panel panel-primary">
+		<h3 class="panel-heading">Place Item</h3>
+			<div class="panel-body">
+				<div>
+					<select class="form-control" name="itemsList">
+						<?php
+							$itemInfo = listOptions("Select name,id from items");
+							foreach($itemInfo as $item) {
+								echo "<option data-id='" . $item[1] . "' value='" . $item[0] .  "'>" . $item[0] . "</option>";
+							}
+						?>
+					</select>
+				</div>
+				<div id="currentItem">
+					<span id="currentItemName"></span>
+					<span id="currentItemDescription"></span>
+					<input type="number">
+				</div>
+				<div class="form-group col-lg-4">
+					<select class="form-control" name="rooms">
+						<?php 
+							$rooms = listOptions("Select id,number from rooms");
+							foreach($rooms as $room) {
+								echo "<option value='" . $room[0] .  "'>" . $room[1] . "</option>";
+							}
+						 ?>
+					</select>
+				</div>
+				<div class="form-group col-lg-4">
+					<select class="form-control" name="section">
 
-			</select>
-			<div id="currentContainer">
+					</select>
+				</div>
+				<div class="form-group col-lg-4">
+					<select class="form-control" name="containers">
+
+					</select>
+				</div>
+				<div><hr></div>
+				<div id="currentContainer">
 
 			</div>
 			<div id="deleteBin">
@@ -136,14 +145,14 @@
 		Set the template of your CSV here!
 		Please MATCH UP the data with the columns correctly otherwise there might be a failed query!
 		<form>
-
-		</form>
-	</div>
-	<div>
-		<h1>Upload Items!</h1>
-		<form action="upload.php" method="post" enctype="multipart/form-data" id="uploadImage">
-			<input type="file" name="csv" id="image">
-			<input type="submit" name="upload" id="upload" value="Upload">
-		</form>
-	</div>
+	<?php if(!isset($_GET['operation']) || (($_GET['operation'] != "bulk") && ($_GET['operation'] != "iu") && ($_GET['operation'] != "cd"))): ?>
+		<div class="aside">
+			<a href="?manage=items&operation=cd">Create and Delete Items</a>
+			<a href="?manage=items&operation=iu">Place Items</a>
+			<a href="?manage=items&operation=bulk">Preform Bulk Operations</a>
+		</div>
+		<div>
+			Filler information about the panels. Maybe recent changes?
+		</div>	
+	<?php endif; ?>
 </div>

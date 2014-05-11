@@ -3,18 +3,32 @@
 		<h3 class="panel-heading">Create Users</h3>
 		<div class="panel-body"> 
 			<div class="result"></div>
-			<input type="email" placeholder="email" name="email" maxlength="256"/>
-			<select name="level">
-				<?php
+				<form class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label for="email-input" class="col-lg-1 control-label label-lg-b">Email</label>
+							<div class="col-lg-8">
+								<input class="form-control" id="email-input" type="email" placeholder="email" name="email" maxlength="256"/>     
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="priv-input" class="col-lg-1 control-label label-lg-b">Level</label>							
+							<div class="col-lg-3 col-md-5">
+								<select class="form-control" id="priv-input">
+									<?php
+										require('inc/level_dropdown.php');
 
-					$queryStatement = "Select distinct(level) from users where level != 'superadmin'";
-					$query = $conn->prepare($queryStatement);
-					$query->execute();
-					while($row = $query->fetch(PDO::FETCH_NUM)){
-						echo "<option value='{$row[0]}'>{$row[0]}</option>";
-					}
-				?>
-			</select>
+										$levelsAvaliable = getLevels($_SESSION['level']);
+
+										foreach ($levelsAvaliable as $level) {
+											echo "<option value='{$level}'>" . strtoupper($level) ."</option>";
+										}
+									?>
+								</select>
+							</div>
+						</div>
+					</fieldset>
+				</form>
 			<button class="btn-primary" onclick="createUser();">Create User</button>
 		</div>
 	</div>
