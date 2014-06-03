@@ -12,7 +12,7 @@
 			.section{
 				margin-left:10px;
 			}
-			.container{
+			.container2{
 				margin-left:20px;
 			}
 			.item{
@@ -52,7 +52,7 @@
 							var newHtml = "";
 							for(var i=0; i < data.length; i++)
 							{
-								newHtml += "<div class='container_container'><div class='container' data-id='" + data[i].id + "'>" + data[i].type + " " + data[i].label +"</div><div class='items_container'></div></div>";
+								newHtml += "<div class='container_container'><div class='container2' data-id='" + data[i].id + "'>" + data[i].type + " " + data[i].label +"</div><div class='items_container'></div></div>";
 							}
 							containersContainer.html(newHtml);
 							containersContainer.children(".container_container").each(function(){
